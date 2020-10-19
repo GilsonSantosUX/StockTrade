@@ -1,19 +1,33 @@
 <template>
-    <v-app isDark>
-        <!-- <Header/> -->
-        <v-content>
-            <v-container>
-                <router-view></router-view>
+    <v-app>
+        <!-- <v-navigation-drawer app>
+        </v-navigation-drawer> -->
+
+        <v-app-bar app>
+            <Header/>
+        </v-app-bar>
+
+        <v-main>
+            <v-container fluid>
+                <v-container>
+                    <router-view></router-view>
+                </v-container>
             </v-container>
-        </v-content>
+        </v-main>
+
+        <v-footer app>
+            <!-- -->
+        </v-footer>
     </v-app>
 </template>
 
 <script>
-// import Header from '../components/Header'
-
+import Header from './components/Header'
 export default {
-    // components: { Header }
+    components: { Header },
+    created() {
+        this.$store.dispatch('initStocks')
+    },
 
 }
 </script>
