@@ -1,6 +1,8 @@
 <template>
     <v-layout row wrap>
-        <h1>Ações</h1>  
+        <v-col sm="12" class="py-0">
+            <h1>Ações</h1> 
+        </v-col>
         <Stock v-for="stock in stocks"
             :key="stock.id"
             :stock="stock"/>

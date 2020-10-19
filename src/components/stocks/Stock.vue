@@ -9,18 +9,25 @@
                 </v-chip>
             </v-card-title>
             <v-card-text>
-                <v-text-field 
-                    label="Quantidade"
-                    type="number"
-                    v-model.number="quantity"
-                ></v-text-field>
+                <v-row class="align-center px-4">
+                    <v-text-field 
+                        label="Quantidade"
+                        type="number"
+                        class="mr-2"
+                        v-model.number="quantity"
+                    ></v-text-field>
+                    <v-btn class="green darken-3 white--text"
+                        :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+                        @click="buyStock"
+                    >COMPRAR</v-btn>
+                </v-row>
             </v-card-text>
-            <v-card-actions>
+            <!-- <v-card-actions>
                 <v-btn class="green darken-3 white--text"
                     :disabled="quantity <= 0 || !Number.isInteger(quantity)"
                     @click="buyStock"
                 >COMPRAR</v-btn>
-            </v-card-actions>
+            </v-card-actions> -->
         </v-card>
     </v-col>
 </template>
@@ -43,7 +50,7 @@ export default {
                 quantity: this.quantity
             }
 
-            console.log(order)
+            this.$store.dispatch('buyStock',order)
             this.quantity=0
         }
     },

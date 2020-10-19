@@ -11,8 +11,7 @@ export default {
     },
     actions:{
         buyStock({ commit }, order){
-            console.log(order)
-            commit()
+            commit('buyStock',order)
         },
         initStocks({commit}){
             console.log('initStocks...')
@@ -20,7 +19,7 @@ export default {
         }
     },
     getters:{
-        stock(state){
+        stocks(state){
             return state.stocks
         }
     }
