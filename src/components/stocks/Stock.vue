@@ -5,19 +5,20 @@
                 <strong>{{stock.name}}</strong>
                 <v-spacer></v-spacer>
                 <v-chip outlined pill text-color="white">
-                    <v-icon class="white--text">mdi-currency-usd</v-icon> <strong>{{stock.price}}</strong>
+                    <v-icon class="white--text">mdi-currency-usd</v-icon> <strong>{{stock.price | currency}}</strong>
                 </v-chip>
             </v-card-title>
             <v-card-text>
                 <v-row class="align-center px-4">
                     <v-text-field 
+                        :error="insufficientsFunds || quantity < 0 || !Number.isInteger(quantity)"
                         label="Quantidade"
                         type="number"
                         class="mr-2"
                         v-model.number="quantity"
                     ></v-text-field>
                     <v-btn class="green darken-3 white--text"
-                        :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+                        :disabled="insufficientsFunds || quantity <= 0 || !Number.isInteger(quantity)"
                         @click="buyStock"
                     >COMPRAR</v-btn>
                 </v-row>
@@ -40,6 +41,14 @@ export default {
     data(){
         return {
             quantity: 0
+        }
+    },
+    computed: {
+        funds(){
+            return this.$store.getters.funds
+        },
+        insufficientsFunds(){
+            return this.quantity * this.stock.price > this.funds
         }
     },
     methods: {

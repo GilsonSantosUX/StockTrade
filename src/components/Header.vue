@@ -12,13 +12,23 @@
             <v-btn to="/portfolio">Portfolio</v-btn>
             <v-btn to="/stocks">Stocks</v-btn>
         </v-toolbar-items>
+        
       <v-spacer></v-spacer>
+
+      <v-toolbar-items class="align-center">
+        <v-chip text color="blue" text-color="white" class="mr-2">
+            Seu saldo
+            <v-icon class="white--text">mdi-currency-usd</v-icon> <strong>{{ funds | currency }}</strong>
+        </v-chip>
+      </v-toolbar-items>
 
       <v-toolbar-items>
             <v-btn icon><v-icon>mdi-content-save</v-icon></v-btn>
             <v-btn icon><v-icon>mdi-cloud-sync-outline</v-icon></v-btn>
             <v-btn icon><v-icon>mdi-power</v-icon></v-btn>
       </v-toolbar-items>
+
+      
 
       <!-- <v-menu
             bottom
@@ -51,6 +61,11 @@
     
 
 export default {
+    computed: {
+        funds(){
+            return this.$store.getters.funds
+        }
+    },
 
 }
 </script>

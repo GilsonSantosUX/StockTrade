@@ -5,7 +5,7 @@
                 <strong>{{stock.name}}</strong>
                 <v-spacer></v-spacer>
                 <v-chip outlined pill text-color="white" class="mr-2">
-                    <v-icon class="white--text">mdi-currency-usd</v-icon> <strong>{{stock.price}}</strong>
+                    <v-icon class="white--text">mdi-currency-usd</v-icon> <strong>{{stock.price | currency}}</strong>
                 </v-chip>
                 <v-chip pill text-color="blue" class="white">
                     <strong>{{stock.quantity}}</strong>
@@ -14,15 +14,16 @@
             <v-card-text>
                 <v-row class="align-center px-4">
                     <v-text-field 
+                        :error="insufficientQuantity || quantity < 0 || !Number.isInteger(quantity)"
                         label="Quantidade"
                         type="number"
                         class="mr-2"
                         v-model.number="quantity"
                     ></v-text-field>
                     <v-btn class="blue darken-3 white--text"
-                        :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+                        :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)"
                         @click="sellStock"
-                    >VENDER</v-btn>
+                    >{{insufficientQuantity ? "INSUFICIENTE" : "VENDER"}}</v-btn>
                 </v-row>
             </v-card-text>
         </v-card>
@@ -38,6 +39,11 @@ export default {
     data(){
         return {
             quantity: 0
+        }
+    },
+    computed: {
+        insufficientQuantity(){
+            return this.quantity > this.stock.quantity
         }
     },
     methods: {
