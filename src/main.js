@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
+
+// Plugins
 import './plugins/vuetify'
+import './plugins/axios'
+
+// Modules
+
 import vuetify from '@/plugins/vuetify'
 import router from './router'
 import store from './store/store'
+
 
 Vue.config.productionTip = false
 

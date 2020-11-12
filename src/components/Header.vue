@@ -25,7 +25,7 @@
       <v-toolbar-items>
             <v-btn icon><v-icon>mdi-content-save</v-icon></v-btn>
             <v-btn icon><v-icon>mdi-cloud-sync-outline</v-icon></v-btn>
-            <v-btn icon><v-icon>mdi-power</v-icon></v-btn>
+            <v-btn icon @click="endDay"><v-icon>mdi-power</v-icon></v-btn>
       </v-toolbar-items>
 
       
@@ -58,12 +58,18 @@
 </template>
 
 <script>
-    
+import { mapActions } from 'vuex'
 
 export default {
     computed: {
         funds(){
             return this.$store.getters.funds
+        }
+    },
+    methods: {
+        ...mapActions(['randomizeStocks']),
+        endDay(){
+            this.randomizeStocks()
         }
     },
 
