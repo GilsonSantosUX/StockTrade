@@ -23,8 +23,8 @@
       </v-toolbar-items>
 
       <v-toolbar-items>
-            <v-btn icon><v-icon>mdi-content-save</v-icon></v-btn>
-            <v-btn icon><v-icon>mdi-cloud-sync-outline</v-icon></v-btn>
+            <v-btn icon @click="saveData"><v-icon>mdi-content-save</v-icon></v-btn>
+            <v-btn icon @click="loadDataLocal"><v-icon>mdi-cloud-sync-outline</v-icon></v-btn>
             <v-btn icon @click="endDay"><v-icon>mdi-power</v-icon></v-btn>
       </v-toolbar-items>
 
@@ -67,9 +67,17 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['randomizeStocks']),
+        ...mapActions(['randomizeStocks','loadData']),
         endDay(){
             this.randomizeStocks()
+        },
+        saveData(){
+            const { funds, stockPortfolio, stocks } = this.$store.getters
+            console.log(funds,stockPortfolio,stocks)
+            this.$http.put('data.json', { funds, stockPortfolio, stocks })
+        },
+        loadDataLocal(){
+            this.loadData()
         }
     },
 
